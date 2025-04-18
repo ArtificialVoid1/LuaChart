@@ -92,3 +92,61 @@ Methods:
 - `IsDrums` : A bool saying if its a drum track
 - `IsGHL` : A bool saying if its a `GHLInstrumentType`
 
+Methods:
+
+`LuaChart.InstrumentTrack:__tostring()` -> `string`
+
+## LuaChart.Note
+- `Type` : `Note`
+- `TickTime` : The time the note happens in ticks
+- `Lanes` : `{1, 2, 3, 4, 5, 6, 7}`
+- `Modifiers` : `{1, 2, 3}`
+- `TickLength` : Length of the note in ticks
+- `Instrument` : The parent `InstrumentTrack`
+
+### 5 Fret
+In this the Lanes represent the different colors
+
+- 1 : Green fret
+- 2 : Red fret
+- 3 : Yellow fret
+- 4 : Blue fret
+- 5 : Orange fret
+- 6 : unused
+- 7 : Open fret
+
+Modifiers tell you if the note is forced or tapped
+- 1 : Forced
+- 2 : Tap
+- 3 : unused
+
+5 fret related methods:
+
+`LuaChart.Note:__tostring()` -> `string`
+`LuaChart.Note:HasOpen()` -> `bool`
+`LuaChart.Note:IsChord()` -> `bool`
+`LuaChart.Note:IsTap()` -> `bool`
+`LuaChart.Note:IsForced()` -> `bool`
+
+### Drums
+
+- 1 : Kick
+- 2 : Red fret
+- 3 : Yellow fret
+- 4 : Blue fret
+- 5 : Green fret / Blue fret (5 lane)
+- 6 : Orange fret (5 lane)
+- 7 : Kick x2
+
+Modifiers tell you if the note is forced or tapped
+- 1 : Accent
+- 2 : Ghost
+- 3 : Cymbal
+
+Drum related methods:
+
+`LuaChart.Note:__tostring()` -> `string`
+`LuaChart.Note:HasKick()` -> `bool`
+`LuaChart.Note:IsAccent()` -> `bool`
+`LuaChart.Note:IsGhost()` -> `bool`
+`LuaChart.Note:IsCymbal()` -> `bool`
