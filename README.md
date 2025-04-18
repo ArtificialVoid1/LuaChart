@@ -33,6 +33,9 @@ The `ChartObject` Stores all of the data about the chart in classes. For example
 - `SyncTrack` : The list of `SyncTrackEvent` objects
 - `Events` : The list of `GlobalEvent` objects
 
+Methods:
+`LuaChart.Chart:__tostring()` -> `string`
+
 Looking at the synctrack, it stores all the data about bpm, time signatures, and bpm anchors
 
 ## LuaChart.SyncTrackEvent
@@ -57,5 +60,32 @@ This can have 3 possible structures based on the `SyncTrackEventType` as follows
 - `EventType` : `LuaChart.SyncTrackEventType.Anchor`
 - `AudioTime` : A number describing the time (In Seconds) that the event occurs
 
+Methods:
+`LuaChart.SyncTrackEvent:__tostring()` -> `string`
 
+## LuaChart.GlobalEvent
+The Global Events also have Type specific cases as shown
+
+`LuaChart.GlobalEventType.Section`:
+- `Type` : `GlobalEvent`
+- `TickTime` : The time the event occurs (In ticks)
+- `EventType` : `LuaChart.GlobalEventType.Section`
+- `Name` : The name of the section (Used for practice mode)
+
+`LuaChart.GlobalEventType.Other`:
+- `Type` : `GlobalEvent`
+- `TickTime` : The time the event occurs (In ticks)
+- `EventType` : `LuaChart.GlobalEventType.Other`
+- `Value` : The Value of the event such as "Lyric" or crowd events
+
+Methods:
+`LuaChart.GlobalEvent:__tostring()` -> `string`
+
+## LuaChart.InstrumentTrack
+- `Type` : `InstrumentTrack`
+- `InstrumentType` : `InstrumentType` or `GHLInstrumentType`
+- `DifficultyType` : `DifficultyType`
+- `Data` : The notes and local events found in the chart
+- `IsDrums` : A bool saying if its a drum track
+- `IsGHL` : A bool saying if its a `GHLInstrumentType`
 
