@@ -159,7 +159,7 @@ Drum related methods:
 
 `LuaChart.Note:IsCymbal()` -> `bool`
 
-##LuaChart.LocalEvent
+## LuaChart.LocalEvent
 Based on `LocalEventType`
 
 `LuaChart.LocalEventType.StarPowerPhrase`
