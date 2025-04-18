@@ -1,5 +1,4 @@
 local ChartParser = {}
-
 ---------------------------- Enum --------------------------------------------
 
 ChartParser.SyncTrackEventType = {
@@ -73,6 +72,7 @@ function LocalEvent:new(TickTime, EventType, MetaData)
         error("Invalid LocalEventType")
     end
 end
+ChartParser.LocalEvent = LocalEvent
 --------------------------------------------------------------------------
 Note = {}
 Note.__index = Note
@@ -136,14 +136,25 @@ function Note:HasOpen()
     return self.Lanes[7] == 1
 end
 
-function Note:IsSpPhrase()
-    return self.Modifiers[3] == 1
+function Note:HasKick()
+    return self.Lanes[1] == 1 or self.Lanes[7] == 1
 end
+
 function Note:IsTap()
-    return self.Modifiers[2] == 1
+    return self.Modifiers[2] == 1 and self.Instrument.IsDrums == false
 end
 function Note:IsForced()
-    return self.Modifiers[1] == 1
+    return self.Modifiers[1] == 1 and self.Instrument.IsDrums == false
+end
+
+function Note:IsGhost()
+    return self.Modifiers[2] == 1 and self.Instrument.IsDrums == true
+end
+function Note:IsAccent()
+    return self.Modifiers[1] == 1 and self.Instrument.IsDrums == true
+end
+function Note:IsCymbal()
+    return self.Modifiers[3] == 1 and self.Instrument.IsDrums == true
 end
 
 function Note:new(TickTime, Lanes, Modifiers, TickLength, parent)
@@ -158,6 +169,7 @@ function Note:new(TickTime, Lanes, Modifiers, TickLength, parent)
     setmetatable(obj, self)
     return obj
 end
+ChartParser.Note = Note
 ------------------------------------------------------------------------
 InstrumentTrack = {}
 InstrumentTrack.__index = InstrumentTrack
@@ -183,6 +195,7 @@ function InstrumentTrack:new(InstrumentType, DifficultyType, DrumTrack, IsGHL)
     setmetatable(obj, self)
     return obj
 end
+ChartParser.InstrumentTrack = InstrumentTrack
 
 ------------------------------------------------------------------------
 GlobalEvent = {}
@@ -209,14 +222,6 @@ function GlobalEvent:new(TickTime, EventType, MetaData)
         }
         setmetatable(obj, self)
         return obj
-    elseif EventType == ChartParser.GlobalEventType.END then
-        local obj = {
-            Type = "GlobalEvent",
-            TickTime = TickTime or 0,
-            EventType = EventType,
-        }
-        setmetatable(obj, self)
-        return obj
     else
         local obj = {
             Type = "GlobalEvent",
@@ -228,7 +233,7 @@ function GlobalEvent:new(TickTime, EventType, MetaData)
         return obj
     end
 end
-
+ChartParser.GlobalEvent = GlobalEvent
 
 ------------------------------------------------------------------------
 SyncTrackEvent = {}
@@ -281,10 +286,11 @@ function SyncTrackEvent:new(TickTime, EventType, MetaData1, MetaData2)
         error("Invalid SyncTrackEventType")
     end
 end
+ChartParser.SyncTrackEvent = SyncTrackEvent
 
 
 ------------------------------------------------------------------------
-local Chart = {}
+Chart = {}
 Chart.__index = Chart
 
 function Chart:__tostring()
@@ -353,6 +359,7 @@ function Chart:new(Instruments, SyncTrack, Events, Name, Artist, Charter, Album,
     setmetatable(obj, self)
     return obj
 end
+ChartParser.Chart = Chart
 
 
 ------------------------------------------------------------------------
@@ -553,7 +560,7 @@ function ChartParser.ParseChart(fileString)
                     lastNote.Lanes[EData[2] + 1] = 1
                 else
                     local lane = EData[2] + 1
-                    local note = Note:new(TickTime, {0,0,0,0,0,0,0,0}, {0,0}, tonumber(EData[3]), currentInst)
+                    local note = Note:new(TickTime, {0,0,0,0,0,0,0}, {0,0}, tonumber(EData[3]), currentInst)
                     note.Lanes[lane] = 1
                     table.insert(currentInst.Data, note)
                     lastNote = note
