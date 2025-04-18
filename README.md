@@ -123,9 +123,13 @@ Modifiers tell you if the note is forced or tapped
 5 fret related methods:
 
 `LuaChart.Note:__tostring()` -> `string`
+
 `LuaChart.Note:HasOpen()` -> `bool`
+
 `LuaChart.Note:IsChord()` -> `bool`
+
 `LuaChart.Note:IsTap()` -> `bool`
+
 `LuaChart.Note:IsForced()` -> `bool`
 
 ### Drums
@@ -146,7 +150,35 @@ Modifiers tell you if the note is forced or tapped
 Drum related methods:
 
 `LuaChart.Note:__tostring()` -> `string`
+
 `LuaChart.Note:HasKick()` -> `bool`
+
 `LuaChart.Note:IsAccent()` -> `bool`
+
 `LuaChart.Note:IsGhost()` -> `bool`
+
 `LuaChart.Note:IsCymbal()` -> `bool`
+
+##LuaChart.LocalEvent
+Based on `LocalEventType`
+
+`LuaChart.LocalEventType.StarPowerPhrase`
+- `Type` : `LocalEvent`
+- `TickTime` : Time the event occured in ticks
+- `EventType` : `LuaChart.LocalEventType.StarPowerPhrase`
+- `TickLength` : Length of the phrase in ticks
+- `DrumsActivationPhrase` : a bool noting if the phrase is a drum activation phrase
+
+`LuaChart.LocalEventType.Other`
+- `Type` : `LocalEvent`
+- `TickTime` : Time the event occured in ticks
+- `EventType` : `LuaChart.LocalEventType.Other`
+- `Name` : The value of the event such as "solo" or "soloend"
+
+Methods:
+
+`LuaChart.LocalEvent:__tostring()` -> `string`
+
+# Enumerators
+
+
