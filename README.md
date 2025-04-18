@@ -33,7 +33,7 @@ The `ChartObject` Stores all of the data about the chart in classes. For example
 - `SyncTrack` : The list of `SyncTrackEvent` objects
 - `Events` : The list of `GlobalEvent` objects
 
-Methods:
+Methods:\n
 `LuaChart.Chart:__tostring()` -> `string`
 
 Looking at the synctrack, it stores all the data about bpm, time signatures, and bpm anchors
@@ -60,7 +60,7 @@ This can have 3 possible structures based on the `SyncTrackEventType` as follows
 - `EventType` : `LuaChart.SyncTrackEventType.Anchor`
 - `AudioTime` : A number describing the time (In Seconds) that the event occurs
 
-Methods:
+Methods:\n
 `LuaChart.SyncTrackEvent:__tostring()` -> `string`
 
 ## LuaChart.GlobalEvent
@@ -78,7 +78,7 @@ The Global Events also have Type specific cases as shown
 - `EventType` : `LuaChart.GlobalEventType.Other`
 - `Value` : The Value of the event such as "Lyric" or crowd events
 
-Methods:
+Methods:\n
 `LuaChart.GlobalEvent:__tostring()` -> `string`
 
 ## LuaChart.InstrumentTrack
