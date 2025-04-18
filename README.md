@@ -13,6 +13,8 @@ ChartObject = LuaChart.ParseChart(chartFile)
 
 The `ChartObject` Stores all of the data about the chart in classes. For example the main class `Chart` is as follows:
 
+## LuaChart.Chart
+- `Type` : `Chart`
 - `Name` : The name of the song
 - `Artist` : The name of the artist
 - `Charter` : The name of the charter
@@ -27,3 +29,33 @@ The `ChartObject` Stores all of the data about the chart in classes. For example
 - `Genre` : Name of the genre of the song
 - `MediaType` : Extra Metadata
 - `MusicStream` : Extra Metadata
+- `Instruments` : The list of `InstrumentTrack` objects
+- `SyncTrack` : The list of `SyncTrackEvent` objects
+- `Events` : The list of `GlobalEvent` objects
+
+Looking at the synctrack, it stores all the data about bpm, time signatures, and bpm anchors
+
+## LuaChart.SyncTrackEvent
+This can have 3 possible structures based on the `SyncTrackEventType` as follows:
+
+`LuaChart.SyncTrackEventType.TimeSignature`:
+- `Type` : `SyncTrackEvent`
+- `TickTime` : The time the event occurs (In ticks)
+- `EventType` : `LuaChart.SyncTrackEventType.TimeSignature`
+- `Value` : (Numerator, Denominator) A tuple containing the time signature
+- `Exponent` : The power of 2 that the Denominator is
+
+`LuaChart.SyncTrackEventType.BPM`:
+- `Type` : `SyncTrackEvent`
+- `TickTime` : The time the event occurs (In ticks)
+- `EventType` : `LuaChart.SyncTrackEventType.BPM`
+- `Tempo` : A number describing the change in tempo
+
+`LuaChart.SyncTrackEventType.Anchor`:
+- `Type` : `SyncTrackEvent`
+- `TickTime` : The time the event occurs (In ticks)
+- `EventType` : `LuaChart.SyncTrackEventType.Anchor`
+- `AudioTime` : A number describing the time (In Seconds) that the event occurs
+
+
+
