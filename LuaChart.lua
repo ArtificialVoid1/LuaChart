@@ -364,7 +364,7 @@ ChartParser.Chart = Chart
 
 ------------------------------------------------------------------------
 
-local function split(inputstr : string, sep : string)
+local function split(inputstr, sep)
 	if sep == nil then
 		sep = "%s"
 	end
